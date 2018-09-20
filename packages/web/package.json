@@ -7,13 +7,20 @@
     "@types/node": "^10.3.2",
     "@types/react": "^16.3.17",
     "@types/react-dom": "^16.0.6",
+    "@types/react-router-dom": "^4.3.1",
     "react-scripts-ts": "2.16.0",
     "typescript": "^3.0.3"
   },
   "dependencies": {
-    "@types/react": "^16.4.14",
+    "apollo-cache-inmemory": "^1.2.10",
+    "apollo-client": "^2.4.2",
+    "apollo-link-http": "^1.5.5",
+    "classnames": "^2.2.6",
     "react": "^16.4.0",
-    "react-dom": "^16.4.0"
+    "react-apollo": "^2.1.11",
+    "react-dom": "^16.4.0",
+    "react-router-dom": "^4.3.1",
+    "semantic-ui-react": "^0.82.5"
   },
   "scripts": {
     "start": "react-scripts-ts start",
