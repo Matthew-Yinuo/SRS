@@ -2,8 +2,20 @@
 .vscode/
 node_modules/
 build/
+<<<<<<< HEAD
 temp/
 *.log
 dump.rdb
 .env
 dist
+=======
+images/
+temp/
+.netlify
+*.log
+dump.rdb
+.env
+dist
+
+*.sql
+>>>>>>> master
