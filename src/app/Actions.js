@@ -4,12 +4,13 @@ const base = new Airtable({ apiKey: config.airtableApiKey }).base(
   config.airtableApiId
 );
 export const fetchCategories = async () => {
-  const results = {};
+  const results = [];
   await base("Categories")
     .select()
     .eachPage((records, fetchNextPage) => {
       records.forEach(record => {
         const category = record.get("Name");
+        console.log("Retrieved", results[record.id]);
         results[record.id] = category;
       });
       fetchNextPage();
@@ -39,12 +40,18 @@ export const fetchDecks = async category => {
   return results;
 };
 export const fetchDeck = async id => {
-  return;
+  return new Promise((success, failure) => {
+    base("Decks").find(id, function(err, record) {
+      if (err) failure(err);
+      const result = { id: record.id, name: record.get("Name") };
+      success(result);
+    });
+  });
 };
-export const fetchCards = async deckId => {
+export const fetchCards = async deck => {
   const results = [];
   await base("Cards")
-    .select()
+    .select({ filterByFormula: `NOT({Deck} != '${deck.name}' )` })
     .eachPage((records, fetchNextPage) => {
       records.forEach(record => {
         results.push({
