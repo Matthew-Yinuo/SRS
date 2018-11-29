@@ -2,26 +2,39 @@ import React from "react";
 import * as api from "./Actions";
 
 export default class Review extends React.PureComponent {
-  state = { cards: [] };
+  state = { deck: {}, cards: [] };
+
   componentWillMount() {
-    this.fetchCards();
+    const { params } = this.props.match;
+    this.fetchDeck(params.deckId);
   }
-  fetchCards() {
-    api.fetchCards().then(response => {
+
+  fetchDeck = deckId => {
+    api.fetchDeck(deckId).then(response => {
+      this.setState({ deck: response }, () => this.fetchCards(response));
+    });
+  };
+
+  fetchCards = deck => {
+    api.fetchCards(deck).then(response => {
       this.setState({ cards: response });
     });
-  }
+  };
+
   render() {
-    const { cards } = this.state;
-    console.log("cards", cards);
+    const { deck, cards } = this.state;
+
     return (
       <div>
         <div>
-          <h1>Review</h1>
+          <h1>Review for {deck.name}</h1>
         </div>
         <div>
-          <div>1 of 2</div>
-          <div>2 of 2</div>
+          {cards.map((card, key) => (
+            <div key={key}>
+              <div dangerouslySetInnerHTML={{ __html: card.front }} />
+            </div>
+          ))}
         </div>
       </div>
     );
