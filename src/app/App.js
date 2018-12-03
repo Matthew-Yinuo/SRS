@@ -11,7 +11,7 @@ export default class App extends React.PureComponent {
         <HashRouter>
           <Switch>
             <Route exact path="/" component={Categories} />
-            <Route exact path="/:categoryId" component={Decks} />
+            <Route exact path="/decks" component={Decks} />
             <Route exact path="/decks/:deckId" component={Review} />
           </Switch>
         </HashRouter>
