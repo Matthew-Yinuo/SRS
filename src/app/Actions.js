@@ -32,8 +32,9 @@ export const fetchDecks = async category => {
     .select({ filterByFormula: `NOT({Category} != '${category.name}' )` })
     .eachPage((records, fetchNextPage) => {
       records.forEach(record => {
-        const deck = record.get("Name");
-        results[record.id] = deck;
+        const name = record.get("Name");
+        const cards = record.get("Cards");
+        results.push({ id: record.id, name, cards });
       });
       fetchNextPage();
     });
